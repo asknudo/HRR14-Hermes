@@ -50,6 +50,7 @@ We are trying to make it easier for people to get out and be active and meet new
 ## How to Get Started ##
   > Describe how easy it is to get started.
 Sign up and put in your interest, the app will find the nearest events and match you up with them
+
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 Great app, much better than Meetup!!
