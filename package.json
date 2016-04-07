@@ -1,0 +1,35 @@
+{
+  "name": "MeetNRec",
+  "version": "0.0.1",
+  "description": "Meet and rekt",
+  "main": "bundle.js",
+  "scripts": {
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "prod": "NODE_ENV=production node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HRR14-Hermes/HRR14-Hermes.git"
+  },
+  "author": "HRR14-Hermes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HRR14-Hermes/HRR14-Hermes/issues"
+  },
+  "homepage": "https://github.com/HRR14-Hermes/HRR14-Hermes#readme",
+  "devDependencies": {
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-stage-1": "^6.1.18",
+    "express": "^4.13.3",
+    "mongoose": "^4.4.11",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "webpack": "^1.12.9"
+  }
+}
