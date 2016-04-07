@@ -4,7 +4,7 @@
 
 *This is how you write good JavaScript.  Follow the guide and life will be so easy.*
 
-<sub>Forked from [Airbnb](https://github.com/airbnb/javascript).</sub>
+<sub>Forked from [Adult Swim](https://github.com/adult-swim/javascript).</sub>
 
 ## Table of Contents
 
