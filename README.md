@@ -1,12 +1,12 @@
 # Project Name
 
-> Pithy project description
+A web app that provides an easy way to organize recreational activities with people nearby
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Kris Stange
+  - __Scrum Master__: Amando Nudo
+  - __Development Team Members__: Dan Ramich, Long Nguyen
 
 ## Table of Contents
 
@@ -19,21 +19,22 @@
 1. [Contributing](#contributing)
 
 ## Usage
-
+> cd /HRR
 > Some usage instructions
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
+- Node 5.10
+- MongoDB 
+- React 0.14+
 - etc
 - etc
 
 ## Development
 
 ### Installing Dependencies
-
+$ npm install webpack webpack-dev-server babel -g
+$ npm install
 From within the root directory:
 
 ```sh
@@ -44,10 +45,9 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/HRR14-Hermes/HRR14-Hermes/issues)
 
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-
+See [CONTRIBUTING.md](https://github.com/HRR14-Hermes/HRR14-Hermes/blob/master/CONTRIBUTING.md) for contribution guidelines.
