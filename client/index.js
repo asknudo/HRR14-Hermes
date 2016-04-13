@@ -4,7 +4,6 @@ import EventNearby from './component/event_nearby';
 import EventSchedule from './component/event_schedule';
 import toastr from 'toastr';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +42,19 @@ class App extends React.Component {
           }}
           events = {this.state.event_nearby}
         />
-        <EventSchedule events = {this.state.event_scheduled} />
+        <EventSchedule
+          onEventDelete = { (event) => {
+            const temp = this.state.event_scheduled;
+            for (let i = 0; i < temp.length; i++) {
+              if (temp[i].id === event.id) {
+                temp.splice(i, 1);
+                this.setState({ event_scheduled: temp });
+                return;
+              }
+            }
+          }}
+          events = {this.state.event_scheduled}
+        />
       </div>
     );
   }
