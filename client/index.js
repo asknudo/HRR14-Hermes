@@ -33,12 +33,12 @@ class App extends React.Component {
         <EventNearby
           onEventSelect = { (event) => {
             if (this.state.event_scheduled.indexOf(event) > -1) {
-              toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
+              toastr.info('You have already signed up for this event!', 'Hey there!', { positionClass: 'toast-top-center', closeButton: true });
               // return;
             } else {
               const temp = this.state.event_scheduled;
               temp.push(event);
-              this.setState({ event_scheduled: temp });              
+              this.setState({ event_scheduled: temp });
             }
           }}
           events = {this.state.event_nearby}
@@ -50,5 +50,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'));
-
-
