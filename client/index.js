@@ -2,23 +2,47 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import EventNearby from './component/event_nearby';
 import EventSchedule from './component/event_schedule';
+import toastr from 'toastr';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      event_nearby: ['basketball', 'baseball', 'golf'],
-      event_scheduled: ['baseball', 'golf'],
+      event_nearby: [
+        { id: 121, event: 'football' },
+        { id: 124, event: 'basketball' },
+        { id: 122, event: 'baseball' },
+        { id: 120, event: 'golf' },
+      ],
+      event_scheduled: [],
     };
 
     // API Calls to database HERE
   }
-
+  // helperEventSelect(event) {
+  //   console.log(this);
+  //   const temp = this.state.event_scheduled;
+  //   temp.push(event);
+  //   this.setState({ event_scheduled: temp });
+  // }
   render() {
     return (
       <div>
-        <EventNearby events = {this.state.event_nearby} />
+        <EventNearby
+          onEventSelect = { (event) => {
+            if (this.state.event_scheduled.indexOf(event) > -1) {
+              toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
+              // return;
+            } else {
+              const temp = this.state.event_scheduled;
+              temp.push(event);
+              this.setState({ event_scheduled: temp });              
+            }
+          }}
+          events = {this.state.event_nearby}
+        />
         <EventSchedule events = {this.state.event_scheduled} />
       </div>
     );
@@ -26,3 +50,5 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'));
+
+
