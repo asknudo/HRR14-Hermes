@@ -1,13 +1,14 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 const EventNearbyEntryView = (props) => {
   return (
-    <li>
+    <li className="eventHeading">
       {props.event.event}
-      <button onClick = {() => {
+      <Button className="button" bsStyle="primary" block bsSize="small" onClick = {() => {
         props.onEventSelect(props.event);
-      }
-      }>Join</button>
+      }}
+      >Join</Button>
     </li>
   );
 };

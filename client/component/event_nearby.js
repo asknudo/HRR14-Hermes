@@ -8,7 +8,7 @@ const EventNearby = (props) => {
       );
   });
   return (
-    <ul>
+    <ul style={{ listStyleType: 'none' }} className="col-sm-2 list-inline">
       {items}
     </ul>
   );

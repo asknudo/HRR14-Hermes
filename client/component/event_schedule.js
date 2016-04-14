@@ -6,7 +6,7 @@ const EventSchedule = (props) => {
     return <EventScheduleEntryView key={event.id} event={event} onEventDelete = { props.onEventDelete } />;
   });
   return (
-    <ul>
+    <ul style={{ listStyleType: 'none' }} className="col-sm-2">
       {items}
     </ul>
   );
