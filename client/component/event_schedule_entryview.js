@@ -1,12 +1,14 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 const EventScheduledEntryView = (props) => {
   return (
-    <li>
+    <li className="eventHeading">
       {props.event.event}
-      <button onClick = { () => {
+      <Button className="button" bsStyle="primary" block bsSize="small" onClick = { () => {
         props.onEventDelete(props.event);
-      }}>Delete</button>
+      }}
+      >Delete</Button>
     </li>
   );
 };
