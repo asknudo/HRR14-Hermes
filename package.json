@@ -31,6 +31,7 @@
     "leaflet": "^0.7.7",
     "mongoose": "^4.4.11",
     "react": "^0.14.3",
+    "react-bootstrap": "^0.28.5",
     "react-dom": "^0.14.3",
     "react-leaflet": "^0.11.0",
     "toastr": "^2.1.2",

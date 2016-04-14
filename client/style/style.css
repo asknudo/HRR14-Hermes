@@ -1,4 +1,46 @@
 .MapView {
-  width: 900px;
-  height: 900px;
+  /*width: 900px;*/
+  height: 600px;
+  margin-top: 3px;
+  border: 2px solid #ddd;
+}
+
+.button {
+  /*margin: 5px;*/
+
+}
+
+.header {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  /*color: #FB0077;*/
+  /*background-color: #83EA6D*/
+}
+
+.eventHeading {
+  text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  margin: 3px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.search-bar {
+  margin: 10px;
+  text-align: center;
+  border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.search-bar input {
+  width: 80%;
+  border-radius: 4px;
+  padding:5px 15px 5px 35px;
+  background: url('./search.png') no-repeat; 
+  font-family: 'Roboto', sans-serif;
+}
+
+.list-inline {
+ white-space:nowrap;
+>>>>>>> Bootsrap all the things
 }
