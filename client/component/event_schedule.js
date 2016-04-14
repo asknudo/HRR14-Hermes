@@ -1,8 +1,9 @@
 import React from 'react';
+import EventScheduleEntryView from './event_schedule_entryview';
 
 const EventSchedule = (props) => {
   let items = props.events.map((event) => {
-    return <li key={event}>{event}</li>;
+    return <EventScheduleEntryView key={event.id} event={event} onEventDelete = { props.onEventDelete } />;
   });
   return (
     <ul>

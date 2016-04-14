@@ -5,7 +5,7 @@
   "main": "bundle.js",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "prod": "NODE_ENV=production node server.js"
+    "prod": "NODE_ENV=production node ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -27,9 +27,14 @@
     "babel-preset-react": "^6.1.18",
     "babel-preset-stage-1": "^6.1.18",
     "express": "^4.13.3",
+    "jquery": "^2.2.3",
+    "leaflet": "^0.7.7",
     "mongoose": "^4.4.11",
     "react": "^0.14.3",
+    "react-bootstrap": "^0.28.5",
     "react-dom": "^0.14.3",
+    "react-leaflet": "^0.11.0",
+    "toastr": "^2.1.2",
     "webpack": "^1.12.9"
   }
 }
