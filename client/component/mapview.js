@@ -26,7 +26,7 @@ const MapView = (props) => {
     return (
       <Marker key="FormViewKey" position={clickLocation} >
       <Popup minWidth="400">
-        <div class="input-group">
+        <div className="input-group">
             <span className="input-group-addon" id="eventName">Event Name:</span>
             <input className="form-control" type="text" aria-describedby="basic-addon1" placeholder="Text" />
             <span className="input-group-addon">Max People:</span>
@@ -37,11 +37,10 @@ const MapView = (props) => {
     );
   };
 
-
   const position = [37.77, -122.431297];
   return (
     <div>
-      <Map onClick={handleClick} center={position} zoom={10} className="col-sm-8 MapView">
+      <Map onclick={handleClick} center={position} zoom={10} className="col-sm-8 MapView">
         <TileLayer
           url= {mapURL}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> &copy; <a href="https://www.mapbox.com/map-feedback/">Mapbox</a>'
