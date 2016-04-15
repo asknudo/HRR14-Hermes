@@ -3,4 +3,5 @@ node_modules
 config/component/config.js
 .floo
 .flooignore
+bundle.js
 
