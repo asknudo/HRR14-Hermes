@@ -37,10 +37,11 @@ const MapView = (props) => {
     );
   };
 
+  
   const position = [37.77, -122.431297];
   return (
     <div>
-      <Map onclick={handleClick} center={position} zoom={10} className="col-sm-8 MapView">
+      <Map onClick={handleClick} center={position} zoom={10} className="col-sm-8 MapView">
         <TileLayer
           url= {mapURL}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> &copy; <a href="https://www.mapbox.com/map-feedback/">Mapbox</a>'
