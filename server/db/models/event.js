@@ -4,12 +4,13 @@ var eventSchema = mongoose.Schema({
   eventName: String,
   creator: String,
   location: String,
-  coord: Mixed,
+  lat: Number,
+  lng: Number,
   imageUrl: String,
   dateCreated: Date,
-  dateofEven: Date,
-  tags: String
-})
+  dateofEvent: Date,
+  tags: String,
+});
 
 var Event = mongoose.model('Event', eventSchema);
 
