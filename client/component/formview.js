@@ -26,7 +26,7 @@ class FormView extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({lat: this.props.location[0], lng: this.props.location[1]});
+    this.setState({ eventObj: _.extend(this.state.eventObj, {lat: this.props.location[0], lng: this.props.location[1] })});
     let form = this;
     $.ajax({
       method: "POST",
@@ -38,12 +38,17 @@ class FormView extends React.Component {
       // Render completed overlay instead
       form.setState({formCompleted: true});
     });
+    this.props.onFormSubmit();
   }
 
   handleReset() {
     // AMANDO NUDO'S NOTE: Add clear method here by passing down onMapClick from Map View.
     // Edit Index.js <MapView> -> onMapClick so coor.noClick logic is done on MapView and not Index.js
     // Then call onMapClick here using this.props.location for latlng and then make noClick equal true. 
+    this.props.onMapClick({
+        latlng: { lat: 0, lng: 0 },
+        noClick: true,
+      });
     this.setState({formCompleted: false});
   }
 
@@ -117,7 +122,7 @@ class FormView extends React.Component {
 
   // Overlay to show when user has submitted a successful form.
   completeOverlay() {
-    const eventMsgTitle = `Event: ${this.state.eventObj.eventName} created.`
+    const eventMsgTitle = `We created an event for ${this.state.eventObj.eventName}!`
     const eventMsg = `We will help you find people to join your event ${this.state.eventObj.creator}!`
     return (
       <div>

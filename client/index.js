@@ -6,25 +6,24 @@ import MapView from './component/mapview';
 import SearchBar from './component/search_bar';
 import toastr from 'toastr';
 import ReactBootstrap from 'react-bootstrap';
+import $ from 'jquery';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      event_nearby: [
-        { id: 121, event: 'Football', lat: 37.59, lng: -122.44 },
-        { id: 124, event: 'Basketball', lat: 37.55, lng: -122.43 },
-        { id: 122, event: 'Baseball', lat: 37.56, lng: -122.42 },
-      ],
+      event_nearby: [],
       event_scheduled: [],
       selectedLocation: {
-        latlng: {lat: 0, lng: 0},
+        latlng: { lat: 0, lng: 0 },
         noClick: true,
       },
-
+      displayInfo: false,
+      idNumber: null,
     };
-
+    //this.getData = this.getData.bind(this);
+    this.getData();
     // API Calls to database HERE
   }
   // helperEventSelect(event) {
@@ -33,6 +32,23 @@ class App extends React.Component {
   //   temp.push(event);
   //   this.setState({ event_scheduled: temp });
   // }
+  getData() {
+    let self = this;
+    $.ajax({
+      method: 'GET',
+      url: '/api/event',
+      contentType: 'application/json',
+    })
+    .done(function (data) {
+      // Render completed overlay instead
+      self.setState({ event_nearby: data });
+      console.log("self", self);
+    });
+  }
+  getId(id) {
+    let self = this;
+    self.setState({ idNumber: id });
+  }
   render() {
     return (
       <div>
@@ -50,12 +66,18 @@ class App extends React.Component {
             }
           }}
           events = {this.state.event_nearby}
+          getId = { (id) => {
+            this.getId(id);
+          }}
         />
         <MapView 
+          onFormSubmit = { () => { 
+            console.log("this", this);
+            this.getData();
+          } }
           selectedLocation = {this.state.selectedLocation} 
           events = {this.state.event_nearby} 
           onMapClick = { (coor) => {
-            coor.noClick = false;
             this.setState({ selectedLocation: coor });
           }
         }

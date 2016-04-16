@@ -10,6 +10,9 @@ var eventSchema = mongoose.Schema({
   dateCreated: Date,
   dateofEvent: Date,
   tags: String,
+},
+{
+  timestamps: true,
 });
 
 var Event = mongoose.model('Event', eventSchema);

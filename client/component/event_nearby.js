@@ -4,7 +4,13 @@ import EventNearbyEntryView from './event_nearby_entryview';
 const EventNearby = (props) => {
   let items = props.events.map((event) => {
     return (
-      <EventNearbyEntryView key={event.id} event={event} id={event.id} onEventSelect = { props.onEventSelect } />
+      <EventNearbyEntryView
+        key={event._id}
+        event={event.eventName}
+        id={event._id}
+        onEventSelect = { props.onEventSelect }
+        getId = {props.getId}
+      />
       );
   });
   return (

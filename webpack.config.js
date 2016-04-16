@@ -1,5 +1,3 @@
-var webpack = require("webpack");
-
 module.exports = {
   entry: [
     './client/index.js',
@@ -22,7 +20,4 @@ module.exports = {
     historyApiFallback: true,
     contentBase: './',
   },
-  // plugins: [
-  // new webpack.optimize.UglifyJsPlugin()
-  // ]
 };
