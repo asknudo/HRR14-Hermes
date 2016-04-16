@@ -3,8 +3,13 @@ import { Button } from 'react-bootstrap';
 
 const EventNearbyEntryView = (props) => {
   return (
-    <li className="eventHeading">
-      {props.event.event}
+    <li 
+      onClick = {() => {
+        props.getId(props.id);
+      }}
+      className="eventHeading"
+    >
+      {props.event}
       <Button className="button" bsStyle="primary" block bsSize="small" onClick = {() => {
         props.onEventSelect(props.event);
       }}
