@@ -5,6 +5,7 @@ const EventSchedule = (props) => {
   let items = props.events.map((event) => {
     return (
     <EventScheduleEntryView
+      mainEvent = {event}
       key={event._id}
       event={event.eventName}
       id={event._id}

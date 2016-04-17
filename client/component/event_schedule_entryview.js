@@ -7,7 +7,7 @@ const EventScheduledEntryView = (props) => {
     <li className="eventHeading">
       {props.event}
       <Button className="button" bsStyle="primary" block bsSize="small" onClick = { () => {
-        props.onEventDelete(props.event);
+        props.onEventDelete(props.mainEvent);
       }}
       >Delete</Button>
     </li>

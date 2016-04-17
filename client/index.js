@@ -71,7 +71,6 @@ class App extends React.Component {
         />
         <MapView
           onFormSubmit = { () => {
-            console.log('this', this);
             this.getData();
           } }
           selectedLocation = {this.state.selectedLocation}
