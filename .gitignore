@@ -4,4 +4,4 @@ config/component/config.js
 .floo
 .flooignore
 bundle.js
-
+.eslintrc.js
