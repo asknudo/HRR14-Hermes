@@ -32,6 +32,16 @@ app.post('/api/event', function (req, res) {
   });
 });
 
+// app.post('/api/user', function (req, res) {
+//   eventController.addEvent(req.body, function (event) {
+//     if (event) {
+//       res.status(201).send(event);
+//     } else {
+//       res.status(404).send('Did not save');
+//     }
+//   });
+// });
+
 app.get(/^(.+)$/, function (req, res) {
     res.sendFile(__dirname + req.params[0]);
 });
