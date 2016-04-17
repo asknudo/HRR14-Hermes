@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 
 const EventNearbyEntryView = (props) => {
   return (
-    <li 
+    <li
       onClick = {() => {
         props.getId(props.id);
       }}
@@ -11,7 +11,7 @@ const EventNearbyEntryView = (props) => {
     >
       {props.event}
       <Button className="button" bsStyle="primary" block bsSize="small" onClick = {() => {
-        props.onEventSelect(props.event);
+        props.onEventSelect(props.mainEvent);
       }}
       >Join</Button>
     </li>

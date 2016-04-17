@@ -42,7 +42,6 @@ class App extends React.Component {
     .done(function (data) {
       // Render completed overlay instead
       self.setState({ event_nearby: data });
-      console.log("self", self);
     });
   }
   getId(id) {
@@ -70,13 +69,13 @@ class App extends React.Component {
             this.getId(id);
           }}
         />
-        <MapView 
-          onFormSubmit = { () => { 
-            console.log("this", this);
+        <MapView
+          onFormSubmit = { () => {
+            console.log('this', this);
             this.getData();
           } }
-          selectedLocation = {this.state.selectedLocation} 
-          events = {this.state.event_nearby} 
+          selectedLocation = {this.state.selectedLocation}
+          events = {this.state.event_nearby}
           onMapClick = { (coor) => {
             this.setState({ selectedLocation: coor });
           }
