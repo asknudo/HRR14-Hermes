@@ -5,6 +5,7 @@ const EventNearby = (props) => {
   let items = props.events.map((event) => {
     return (
       <EventNearbyEntryView
+        mainEvent = {event}
         key={event._id}
         event={event.eventName}
         id={event._id}

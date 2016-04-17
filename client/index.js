@@ -22,16 +22,11 @@ class App extends React.Component {
       displayInfo: false,
       idNumber: null,
     };
-    //this.getData = this.getData.bind(this);
+    // this.getData = this.getData.bind(this);
     this.getData();
-    // API Calls to database HERE
   }
-  // helperEventSelect(event) {
-  //   console.log(this);
-  //   const temp = this.state.event_scheduled;
-  //   temp.push(event);
-  //   this.setState({ event_scheduled: temp });
-  // }
+
+  // API Call to database for main event_nearby data
   getData() {
     let self = this;
     $.ajax({
@@ -39,16 +34,30 @@ class App extends React.Component {
       url: '/api/event',
       contentType: 'application/json',
     })
-    .done(function (data) {
+    .done((data) => {
       // Render completed overlay instead
       self.setState({ event_nearby: data });
-      console.log("self", self);
     });
   }
+
   getId(id) {
     let self = this;
     self.setState({ idNumber: id });
   }
+
+  // API call to post event after click in event_nearby_entryview
+  postSchedule(event) {
+    $.ajax({
+      method: 'POST',
+      url: '/api/user',
+      data: JSON.stringify(event),
+      contentType: 'application/json',
+    })
+    .done((msg) => {
+      console.log(msg);
+    });
+  }
+
   render() {
     return (
       <div>
@@ -63,6 +72,7 @@ class App extends React.Component {
               const temp = this.state.event_scheduled;
               temp.push(event);
               this.setState({ event_scheduled: temp });
+              // this.postSchedule(event);
             }
           }}
           events = {this.state.event_nearby}
@@ -70,13 +80,12 @@ class App extends React.Component {
             this.getId(id);
           }}
         />
-        <MapView 
-          onFormSubmit = { () => { 
-            console.log("this", this);
+        <MapView
+          onFormSubmit = { () => {
             this.getData();
           } }
-          selectedLocation = {this.state.selectedLocation} 
-          events = {this.state.event_nearby} 
+          selectedLocation = {this.state.selectedLocation}
+          events = {this.state.event_nearby}
           onMapClick = { (coor) => {
             this.setState({ selectedLocation: coor });
           }
@@ -86,7 +95,7 @@ class App extends React.Component {
           onEventDelete = { (event) => {
             const temp = this.state.event_scheduled;
             for (let i = 0; i < temp.length; i++) {
-              if (temp[i].id === event.id) {
+              if (temp[i]._id === event._id) {
                 temp.splice(i, 1);
                 this.setState({ event_scheduled: temp });
                 return;
