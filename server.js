@@ -4,21 +4,29 @@ var db = require('./server/db/config.js');
 var bodyParser = require('body-parser');
 var eventController = require('./server/db/controllers/eventController.js');
 var userController = require('./server/db/controllers/userController.js');
-var passportService = require('./server/passport');
-var passport = require('passport');
+var session = require('express-session');
 
-var requireAuth = passport.authenticate('jwt', {session: false}); 
-var requireSignin = passport.authenticate('local', {session: false});
+var User = require ('./server/db/models/user.js');
 
+// Temp Secret. Redo and factor it in config folder.
+app.use(session({
+  secret: '0c3hnd8n4bs8woJKgywCDdoff93',
+  saveUninitialized: true 
+}))
 app.use(bodyParser.json());
 
-app.get('/', requireAuth, function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+
+app.get('/', userController.checkUser, function (req, res) {
+  res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/test', requireAuth, function(req, res) {
-  res.send({ hi: 'there' });
+// Serve Login Page
+app.get('/login', function (req, res) {
+  res.sendFile(__dirname + '/login.html');
 });
+
+app.post('/signup', userController.signup);
+app.post('/signin', userController.signin);
 
 app.get('/api/event', function (req, res) {
   eventController.getEvent(function(events) {
@@ -40,23 +48,6 @@ app.post('/api/event', function (req, res) {
     }
   });
 });
-
-app.post('/api/signup', function (req, res) {
-
-  if (!req.body.emailAddress || !req.body.password ) {
-    return res.status(404).send({ error: 'You must provide email and password' });
-  }
-
-  userController.signup(req.body, function(user) {
-    if (user.error) {
-      res.status(404).send(user);
-    } else {
-      res.status(201).json(user);
-    }
-  });
-});
-
-app.post('/api/signin', requireSignin, userController.signin);
 
 // app.post('/api/user', function (req, res) {
 //   eventController.addEvent(req.body, function (event) {

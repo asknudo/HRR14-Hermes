@@ -1,61 +1,77 @@
 var User = require ('../models/user.js');
-var jwt = require('jwt-simple');
+var path = require('path');
+var session = require('express-session');
 
-// Temp Secret. Redo and factor it in config folder.
-exports.secret = { secret: '0c3hnd8n4bs8woJKgywCDdoff93' };
 
-// Create Token Session for user.
-function tokenForUser(user) {
-  var timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp}, '0c3hnd8n4bs8woJKgywCDdoff93');
-};
+exports.signup = function(req, res, next) {
 
-exports.addUser = function (user, callback) {
-  User.create(user, function (err, saved) {
-    if (err) {
-      return callback(false);
-    } else {
-      return callback(saved);
-    }
-  });
-};
+  if (!req.body.emailAddress || !req.body.password ) {
+    return res.status(422).send({ error: 'You must provide email and password' });
+  }
 
-exports.getUser = function (callback) {
-  User.find({}, function(err, data) {
-    if (err) {
-      return callback(false);
-    } else {
-      return callback(data);
-    }
-  });
-};
-
-exports.signup = function(user, callback) {
   // See if a user with the given email exists
-  User.findOne({ emailAddress: user.emailAddress }, function(err, existingUser) {
+  User.findOne({ emailAddress: req.body.emailAddress }, function(err, existingUser) {
     if (err) {
-      return callback(err);
+      return next(err);
     }
     // If a user with email does exist, return an error
     if (existingUser) {
-      return callback({ error: 'Email is in use' });
+      return res.status(422).send({ error: 'Email is in use' });
     }
+
     // Else create and save user and email
-    var newUser = new User(user);
-    newUser.save(function(err) {
+    var user = new User(req.body);
+    user.save(function(err) {
       if (err) {
-        return callback(err);
+        return next(err);
       }
       // Response to request indicating the user was created
-      // Send back web token.
-      return callback({ token: tokenForUser(newUser) });
+    }).then(function(newUser) {
+        return req.session.regenerate(function() {
+          req.session.user = newUser;
+          res.send({redirect: '/'});
+        });
     });
 
-  }); 
+  });
+
 };
 
-exports.signin = function(req, res, next) {
-  console.log(req.user);
-  res.send({ token: tokenForUser(req.user) });
+
+exports.signin = function(req, res, callback) {
+  console.log(req.body);
+  User.findOne({ emailAddress: req.body.emailAddress}, function(err, foundUser) {
+
+  if (err) { return callback(err); }
+  if (!foundUser) {return callback(null, false); }
+
+  foundUser.comparePassword(req.body.password, function(err, isMatch) {
+    if (err) { return callback(err); }
+    if (!isMatch) { return callback(null, false); } 
+      return req.session.regenerate(function() {
+        req.session.user = foundUser;
+        res.send({redirect: '/'});
+      });
+    });
+  });
 }
 
+
+var isLoggedIn = function(req) {
+  return req.session ? !!req.session.user : false;
+};
+
+exports.checkUser = function(req, res, next){
+  if (!isLoggedIn(req)) {
+     res.redirect('/login');
+  } else {
+    next();
+  }
+};
+
+exports.createSession = function(req, res, newUser) {
+  return req.session.regenerate(function() {
+      req.session.user = newUser;
+      res.redirect('/index.html');
+    });
+};
