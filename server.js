@@ -32,7 +32,20 @@ app.post('/api/event', function (req, res) {
   });
 });
 
-app.post('/signup', userController.signup);
+app.post('/signup', function (req, res) {
+
+  if (!req.body.emailAddress || !req.body.password ) {
+    return res.status(404).send({ error: 'You must provide email and password' });
+  }
+  console.log("inside router " + req.body.emailAddress);
+  userController.signup(req.body, function(user) {
+    if (user.error) {
+      res.status(404).send(user);
+    } else {
+      res.status(201).json(user);
+    }
+  });
+});
 
 // app.post('/api/user', function (req, res) {
 //   eventController.addEvent(req.body, function (event) {

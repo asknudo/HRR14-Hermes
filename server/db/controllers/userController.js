@@ -20,30 +20,25 @@ exports.getUser = function (callback) {
   })
 }
 
-exports.signup = function(req, res, next) {
-
-  if (!req.body.emailAddress || !req.body.password ) {
-    return res.status(422).send({ error: 'You must provide email and password' });
-  }
-
+exports.signup = function(user, callback) {
   // See if a user with the given email exists
-  User.findOne({ emailAddress: req.body.emailAddress }, function(err, existingUser) {
+  User.findOne({ emailAddress: user.emailAddress }, function(err, existingUser) {
     if (err) {
-      return next(err);
+      return callback(err);
     }
     // If a user with email does exist, return an error
     if (existingUser) {
-      return res.status(422).send({ error: 'Email is in use' });
+      return callback({ error: 'Email is in use' });
     }
-
+    
     // Else create and save user and email
-    var user = new User(req.body);
-    user.save(function(err) {
+    var newUser = new User(user);
+    newUser.save(function(err) {
       if (err) {
-        return next(err);
+        return callback(err);
       }
       // Response to request indicating the user was created
-      res.json({success: true});
+      return callback({ success: true });
     });
 
   });
