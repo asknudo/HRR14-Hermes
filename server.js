@@ -4,11 +4,20 @@ var db = require('./server/db/config.js');
 var bodyParser = require('body-parser');
 var eventController = require('./server/db/controllers/eventController.js');
 var userController = require('./server/db/controllers/userController.js');
+var passportService = require('./server/passport');
+var passport = require('passport');
+
+var requireAuth = passport.authenticate('jwt', {session: false}); 
+var requireSignin = passport.authenticate('local', {session: false});
 
 app.use(bodyParser.json());
 
-app.get('/', function (req, res) {
+app.get('/', requireAuth, function (req, res) {
     res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/test', requireAuth, function(req, res) {
+  res.send({ hi: 'there' });
 });
 
 app.get('/api/event', function (req, res) {
@@ -32,12 +41,12 @@ app.post('/api/event', function (req, res) {
   });
 });
 
-app.post('/signup', function (req, res) {
+app.post('/api/signup', function (req, res) {
 
   if (!req.body.emailAddress || !req.body.password ) {
     return res.status(404).send({ error: 'You must provide email and password' });
   }
-  console.log("inside router " + req.body.emailAddress);
+
   userController.signup(req.body, function(user) {
     if (user.error) {
       res.status(404).send(user);
@@ -46,6 +55,8 @@ app.post('/signup', function (req, res) {
     }
   });
 });
+
+app.post('/api/signin', requireSignin, userController.signin);
 
 // app.post('/api/user', function (req, res) {
 //   eventController.addEvent(req.body, function (event) {

@@ -11,6 +11,7 @@ var userSchema = mongoose.Schema({
   password: String
 })
 
+// Salt user's password before saving.
 userSchema.pre('save', function(next) {
   var user = this;
   bcrypt.genSalt(10, function(err, salt) {
@@ -27,6 +28,13 @@ userSchema.pre('save', function(next) {
   });
 });
 
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) { return callback(err); }
+
+    callback(null, isMatch);
+  });
+}
 
 var User = mongoose.model('User', userSchema);
 
